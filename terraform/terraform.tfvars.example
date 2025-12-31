@@ -1,0 +1,17 @@
+# terraform.tfvars.example
+# Copy this file to terraform.tfvars and fill in the values
+
+aws_region      = "us-east-1"
+env             = "dev"
+ami_id          = "ami-0c55b159cbfafe1f0" # Example AMI ID
+twillio_api_key = "twillio_dummy_123"
+
+s3_bucket_name  = "myapp-bucket"
+sqs_queue_name  = "myapp-events"
+event_rule_name = "myapp-events-rule"
+event_bus_name  = "default"
+event_pattern   = {
+  source = ["myapp"]
+}
+
+ses_email = "your-verified-email@example.com"
