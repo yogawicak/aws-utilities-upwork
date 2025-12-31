@@ -1,5 +1,6 @@
 const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
 const { spawnSync } = require("child_process");
+const path = require("path");
 require("dotenv").config();
 
 function getTerraformOutputs(terrDir) {
@@ -9,7 +10,7 @@ function getTerraformOutputs(terrDir) {
 }
 
 async function main() {
-    const TERRAFORM_DIR = "/Users/yogawicaksono/Desktop/YOGA_PUNYA/job-upwork-oliver-may/terraform";
+    const TERRAFORM_DIR = path.join(process.cwd(), "../terraform");
 
     console.log("Fetching Terraform outputs...");
     const outputs = getTerraformOutputs(TERRAFORM_DIR);

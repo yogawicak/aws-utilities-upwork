@@ -1,8 +1,26 @@
 const https = require('https');
+const { spawnSync } = require("child_process");
+const path = require("path");
+require("dotenv").config();
+
+function getTerraformOutputs(terrDir) {
+    const res = spawnSync("terraform", ["output", "-json"], { cwd: terrDir, encoding: "utf-8" });
+    if (res.status !== 0) throw new Error(res.stderr || "terraform output failed");
+    return JSON.parse(res.stdout);
+}
 
 // Configuration
-const API_ENDPOINT = 'https://kbdo8y8o11.execute-api.us-east-1.amazonaws.com';
+const TERRAFORM_DIR = path.join(process.cwd(), "../terraform");
+const outputs = getTerraformOutputs(TERRAFORM_DIR);
+
+if (!outputs.ses_api_endpoint) {
+    throw new Error("ses_api_endpoint output not found in Terraform. Did you apply the latest configuration?");
+}
+
+const API_ENDPOINT = outputs.ses_api_endpoint.value;
 const TEST_EMAIL = 'success@simulator.amazonses.com'; // AWS SES Simulator Success Email
+
+console.log(`Using API Endpoint: ${API_ENDPOINT}`);
 
 const payload = JSON.stringify({
     to: TEST_EMAIL,

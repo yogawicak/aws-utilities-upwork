@@ -64,5 +64,6 @@ The `codebase/` directory contains Node.js scripts, primarily used for testing a
    AWS_PROFILE=myapp-dev
    AWS_ACCESS_KEY_ID=your_access_key_id
    AWS_SECRET_ACCESS_KEY=your_secret_access_key
+   SES_EMAIL=your_ses_email
    ```
 4. Run tests/scripts (located in `test/` directory).

@@ -57,6 +57,5 @@ variable "event_pattern" {
 variable "ses_email" {
   description = "Email address to verify in SES and send emails from. You must have access to this email to click the verification link."
   type        = string
-  default     = "yogawicaksono20@gmail.com"
 }
 

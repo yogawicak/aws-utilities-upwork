@@ -1,5 +1,6 @@
 const { S3Client, PutObjectCommand, GetObjectCommand, ListObjectsV2Command, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const { spawnSync } = require("child_process");
+const path = require("path");
 require("dotenv").config();
 
 function getTerraformOutputs(terrDir) {
@@ -18,7 +19,7 @@ function streamToString(stream) {
 }
 
 async function main() {
-    const TERRAFORM_DIR = "/Users/yogawicaksono/Desktop/YOGA_PUNYA/job-upwork-oliver-may/terraform";
+    const TERRAFORM_DIR = path.join(process.cwd(), "../terraform");
     const outputs = getTerraformOutputs(TERRAFORM_DIR);
     const bucket = outputs.s3_bucket_name.value;
     const region = process.env.AWS_REGION || "us-east-1";

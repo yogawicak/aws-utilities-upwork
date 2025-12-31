@@ -1,5 +1,6 @@
 const { SQSClient, SendMessageCommand, ReceiveMessageCommand, DeleteMessageCommand, GetQueueAttributesCommand } = require("@aws-sdk/client-sqs");
 const { spawnSync } = require("child_process");
+const path = require("path");
 require("dotenv").config();
 
 function getTerraformOutputs(terrDir) {
@@ -9,7 +10,7 @@ function getTerraformOutputs(terrDir) {
 }
 
 async function main() {
-    const TERRAFORM_DIR = "/Users/yogawicaksono/Desktop/YOGA_PUNYA/job-upwork-oliver-may/terraform";
+    const TERRAFORM_DIR = path.join(process.cwd(), "../terraform");
     const outputs = getTerraformOutputs(TERRAFORM_DIR);
     const queueUrl = outputs.sqs_queue_url.value;
     const region = process.env.AWS_REGION || "us-east-1";

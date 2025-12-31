@@ -1,6 +1,7 @@
 const { EventBridgeClient, PutEventsCommand } = require("@aws-sdk/client-eventbridge");
 const { SQSClient, ReceiveMessageCommand, DeleteMessageCommand } = require("@aws-sdk/client-sqs");
 const { spawnSync } = require("child_process");
+const path = require("path");
 require("dotenv").config();
 
 function getTerraformOutputs(terrDir) {
@@ -18,7 +19,7 @@ function parseRuleArn(arn) {
 }
 
 async function main() {
-    const TERRAFORM_DIR = "/Users/yogawicaksono/Desktop/YOGA_PUNYA/job-upwork-oliver-may/terraform";
+    const TERRAFORM_DIR = path.join(process.cwd(), "../terraform");
     const outputs = getTerraformOutputs(TERRAFORM_DIR);
     const ruleArn = outputs.event_rule_arn.value;
     const queueUrl = outputs.sqs_queue_url.value;
